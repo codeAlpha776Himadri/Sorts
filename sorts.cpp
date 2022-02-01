@@ -28,26 +28,27 @@ class Sort {
     void BubbleSort(vector<int> Arr) ;
     void InsertionSort(vector<int> Arr) ;
     void SelectionSort(vector<int> Arr) ;
-    void Quicksort(vector<int> &Arr) ;
     void QuickSort(vector<int> &Arr, int low, int high) ;
-    void Merge(vector<int> &A, int low, int mid, int high) ;
     void MergeSort_iterative(vector<int> Arr) ;
     void MergeSort_recursive(vector<int> &Arr, int low, int high) ;
     void CountSort(vector<int> &Arr) ;
     void BinOrBucketSort(vector<int> &Arr) ;
+    void RadixSort(vector<int> &Arr) ;
+    void ShellSort(vector<int> &Arr) ;
+    
+    // -- Helper Methods --
+    void Quicksort(vector<int> &Arr) ;
     void Insert(node **ptrbins, int idx) ;
     int  Delete(node **ptrbins, int idx) ;
     int  countDigits(long long int x) ;
     int  getBinIndex(int x, int idx) ;
     void InsertRadix(node **ptrbins, int value, int idx) ;
-    void RadixSort(vector<int> &Arr) ;
-    
-    // -- Helper Methods --
+    void Merge(vector<int> &A, int low, int mid, int high) ;
     int partition(vector<int> &Arr, int low, int high) ;
-    
     void Display(vector<int> Arr) ;
 };
 
+// ---------- Bubble Sort ----------
 void Sort::BubbleSort(vector<int> Arr) {
     cout<<"Before Bubble Sorting : ";
     Display(Arr) ;
@@ -68,6 +69,7 @@ void Sort::BubbleSort(vector<int> Arr) {
     Display(Arr) ;
 }
 
+// ---------- Insertion Sort ----------
 void Sort::InsertionSort(vector<int> Arr) {
     cout<<"Before Insert Sorting : ";
     Display(Arr) ;
@@ -99,6 +101,7 @@ void Sort::InsertionSort(vector<int> Arr) {
     Display(Arr) ;
 }
 
+// ---------- Selection Sort ----------
 void Sort::SelectionSort(vector<int> Arr) {
     cout<<"Before Selection Sorting : ";
     Display(Arr) ;
@@ -117,6 +120,7 @@ void Sort::SelectionSort(vector<int> Arr) {
     Display(Arr) ;
 }
 
+// ---------- Quick Sort ----------
 void Sort::Quicksort(vector<int> &Arr) {
     cout<<"Before Quick Sorting : ";
     Display(Arr) ;
@@ -133,6 +137,7 @@ void Sort::QuickSort(vector<int> &Arr, int low, int high) {
     }
 }
 
+// ---------- Merge sort ----------
 void Sort::MergeSort_recursive(vector<int> &Arr, int low, int high) {
     if (low < high) {  
         int mid = (low + high) / 2 ;
@@ -198,7 +203,7 @@ void Sort::CountSort(vector<int> &Arr) {
     Display(Arr) ;
 }
 
-// ---------- Bucket Sort ----------
+// ---------- Bucket Sort / Bin Sort ----------
 void Sort::Insert(node **ptrbins , int idx ) {
     node *temp = new node ;
     temp -> value = idx ;
@@ -310,6 +315,28 @@ void Sort::RadixSort(vector<int> &Arr) {
     Display(Arr) ;
 }
 
+// ---------- Shell Sort ----------
+void Sort::ShellSort(vector<int> &Arr) {
+    cout<<"\nBefore Shell Sorting : ";
+    Display(Arr) ;
+    
+    int gap, i, j;
+    for (gap = Arr.size()/2 ; gap>=1 ; gap /= 2) {
+        for (i = gap ; i < Arr.size() ; i++) {
+            int temp = Arr[i] ;
+            j = i - gap ;
+            while (j > 0 && Arr[j] > temp) {
+                Arr[j+gap] = Arr[j] ;
+                j = j - gap ;
+            }
+            Arr[j+gap] = temp ;
+        }
+    }
+    
+    cout<<"After Shell Sorting : ";
+    Display(Arr) ;
+}
+
 // ---------- Helper Methods ----------
 int Sort::partition(vector<int> &Arr, int low, int high) {
     int pivot = Arr[low] ;
@@ -355,6 +382,7 @@ int main(void) {
     vector<int> Arr3{7,50,20,10,80,5,90} ;
     vector<int> Arr4{7,50,20,10,80,5,90} ;
     vector<int> Arr5{7,50,20,10,80,5,90} ;
+    vector<int> Arr6{7,50,20,10,80,5,90} ;
     
     S.BubbleSort(Arr1) ; cout<<endl;
     S.InsertionSort(Arr1) ; cout<<endl;
@@ -371,9 +399,12 @@ int main(void) {
     
     S.BinOrBucketSort(Arr1) ;
     S.RadixSort(Arr5);
+    S.ShellSort(Arr6);
     
     return 0 ;
 }
+
+
 
 
 
